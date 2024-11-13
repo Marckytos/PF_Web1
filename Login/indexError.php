@@ -1,7 +1,7 @@
 <h1>Login error</h1>
 <div  >
     
-        <form method="POST" action="Logica/inicio_sesion.php">
+        <form method="POST" action="./Logica/inicio_sesion.php">
 
             <input type="text" name="nombre_usuario" placeholder="Nombre de usuario" />
             <br />

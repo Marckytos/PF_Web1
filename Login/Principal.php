@@ -3,7 +3,7 @@ session_start();
 $nombre_usuario= $_SESSION['username'];
 
 
-if(!isset($no_cuenta)){
+if(!isset($nombre_usuario)){
 
         header("location: ./index.php");
 }else{
@@ -58,7 +58,7 @@ if ( $count>0 ){
     echo " <h1 style='color:red' >Sin Ningun registro</h1>";
  } 
   echo "
-    <h1><a href='EliminarUsuario.php'>ElimnarUsuario</a></h1>
+    <h1><a href='EliminarUsuario.php'>Eliminar Usuario</a></h1>
     <h1><a href='Registro.php'>Registro</a></h1>
     ";
     
