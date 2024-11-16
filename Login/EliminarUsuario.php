@@ -1,3 +1,13 @@
+<?php
+session_start(); // Inicia la sesión
+// Verifica si el usuario ha iniciado sesión
+if (!isset($_SESSION['username'])) {
+    header("Location: ./Logica/inicio_sesion.php"); // Redirige a la página de login si no hay sesión activa
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 

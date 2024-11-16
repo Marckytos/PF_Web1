@@ -1,4 +1,11 @@
 <?php
+session_start(); // Inicia la sesión
+
+// Verifica si el usuario ha iniciado sesión
+if (!isset($_SESSION['username'])) {
+    header("Location: ./Logica/inicio_sesion.php"); // Redirige a la página de login si no hay sesión activa
+    exit();
+}
 // se usa el requiere para si psi se necesita el archivo conexion
 require "./Logica/conexion.php";
 mysqli_set_charset($conexion,'utf8');

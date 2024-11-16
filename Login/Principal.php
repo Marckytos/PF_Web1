@@ -1,71 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal</title>
+    <!-- Enlace a Materialize CSS -->
+    <link rel="stylesheet" href="../materialize/css/materialize.min.css">
+</head>
+<body>
+
+
+
 <?php
 session_start();
-$nombre_usuario= $_SESSION['username'];
+$nombre_usuario = $_SESSION['username'];
 
+if (!isset($nombre_usuario)) {
+    header("location: ./index.php");
+} else {
+    echo "<h1>Hola, tu nombre de usuario es $nombre_usuario</h1>";
+    echo "<a href='./Logica/salir.php'>SALIR</a>";
 
-if(!isset($nombre_usuario)){
+    // Incluir la conexión
+    require "./Logica/conexion.php";
+    mysqli_set_charset($conexion, 'utf8');
 
-        header("location: ./index.php");
-}else{
-    
-    echo "<h1> hola tu nombre de usuario es  $nombre_usuario </h1> ";
-    echo "<a href='logica/salir.php'> SALIR</a>";
-    
+    // Generar el query
+    $consulta_sql = "SELECT * FROM cliente";
 
-    // se usa el requiere para si psi se necesita el archivo conexion
-require "./Logica/conexion.php";
-mysqli_set_charset($conexion,'utf8');
+    // Ejecutar el query y almacenar el resultado
+    $resultado = $conexion->query($consulta_sql);
 
-//genear el query
-$consulta_sql="SELECT * FROM cliente";
+    // Retorna el número de filas del resultado.
+    $count = mysqli_num_rows($resultado);
 
-//mandar el query por medio de la conexion y almacenaremos el resultado en una variable
-$resultado = $conexion->query($consulta_sql);
+    // Estilos de Materialize para la tabla
+    echo "<div class='container'>";
+    echo "<table class='striped centered responsive-table'>
+            <thead>
+              <tr>
+                <th>Usuario</th>
+                <th>Dirección</th>
+                <th>Teléfono</th>
+                <th>Correo Electrónico</th>
+                <th>Contraseña</th>
+                <th>Fecha de Registro</th>
+              </tr>
+            </thead>
+            <tbody>";
 
-// Retorna el numero de filas del resultado. Si encuentra mas de uno lo usamos para imprimir el resultado en nuestra tabla
-$count = mysqli_num_rows($resultado); 
- 
-echo "<table border='2' >
-    <tr>
-        <th>Usuario</th>
-        
-        <th>Direccion</th>
-        <th>Telefono</th>
-        <th>Correo Electronico</th>
-        <th>Contraseña</th>
-        <th>Fecha de Registro</th>
-    </tr>";
-
-if ( $count>0 ){
-    //aqui se pintarian los registro de la DB
-    while( $row = mysqli_fetch_assoc($resultado)  ){
-     echo "<tr>";
-     echo"<td>". $row['nombre_usuario'] ."</td>";
-     echo"<td>". $row['direccion'] ."</td>";
-     echo"<td>". $row['telefono'] ."</td>";
-     echo"<td>". $row['email'] ."</td>";
-     echo"<td>". $row['password'] ."</td>";
-     echo"<td>". $row['fecha_registro'] ."</td>";
-     echo "</tr>";
-     
+    if ($count > 0) {
+        // Pintar los registros de la base de datos
+        while ($row = mysqli_fetch_assoc($resultado)) {
+            echo "<tr>";
+            echo "<td>" . $row['nombre_usuario'] . "</td>";
+            echo "<td>" . $row['direccion'] . "</td>";
+            echo "<td>" . $row['telefono'] . "</td>";
+            echo "<td>" . $row['email'] . "</td>";
+            echo "<td>" . $row['password'] . "</td>";
+            echo "<td>" . $row['fecha_registro'] . "</td>";
+            echo "</tr>";
+        }
+    } else {
+        echo "<tr><td colspan='6' class='red-text'>Sin ningún registro</td></tr>";
     }
-    echo "</table>";
 
-}else{
-    
-    
-    
-    echo " <h1 style='color:red' >Sin Ningun registro</h1>";
- } 
-  echo "
-    <h1><a href='EliminarUsuario.php'>Eliminar Usuario</a></h1>
-    <h1><a href='Registro.php'>Registro</a></h1>
-    ";
-    
+    echo "</tbody>
+          </table>
+          </div>";
 
-
-
+    echo "<div class='container'>
+            <h5><a href='EliminarUsuario.php' class='btn red'>Eliminar Usuario</a></h5>
+            <h5><a href='Registro.php' class='btn blue'>Registro</a></h5>
+          </div>";
 }
-
-
 ?>
+
+<!-- Enlace a Materialize JS y sus dependencias -->
+<script src="../materialize/js/materialize.min.js"></script>
+</body>
+</html>
