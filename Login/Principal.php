@@ -18,8 +18,8 @@ $nombre_usuario = $_SESSION['username'];
 if (!isset($nombre_usuario)) {
     header("location: ./index.php");
 } else {
-    echo "<h1>Hola, tu nombre de usuario es $nombre_usuario</h1>";
-    echo "<a href='./Logica/salir.php'>SALIR</a>";
+    echo "<h3>Hola, tu nombre de usuario es $nombre_usuario</h3>";
+    echo "<a href='./Logica/salir.php' class = 'btn waves-effect waves-light'>SALIR</a>";
 
     // Incluir la conexión
     require "./Logica/conexion.php";
