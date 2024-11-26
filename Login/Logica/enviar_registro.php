@@ -59,8 +59,8 @@ $count = mysqli_num_rows($resultado);
                         '$_POST[password]'
                     )");
                 echo "<h4 class='green-text'>Usuario creado con éxito</h4>";
-                echo "<a href='../../Registro.php' class='btn waves-effect waves-light'>Generar un Nuevo Registro</a>";
-                echo "<a href='../../Principal.php' class='btn waves-effect waves-light'>Ver Registros</a>";
+                echo "<a href='../Registro.php' class='btn waves-effect waves-light'>Generar un Nuevo Registro</a>";
+                echo "<a href='../Principal.php' class='btn waves-effect waves-light'>Ver Registros</a>";
             }
             ?>
         </div>
